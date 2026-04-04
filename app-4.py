@@ -1,145 +1,3 @@
-
-Screenshot 2026-04-04 at 16.52.56.png
-
-""" Virtual Study Session Participation and Remote Focus Ability Survey Fundamentals of Programming - 4BUIS008C """ import streamlit as st import json import csv import io import re import os from datetime import datetime, date # ───────────────────────────────────────────── # PAGE CONFIG # ──────
-PASTED
-first read my app py carefully and fix the part with this problem in screenshotas u see view. your core and score breakdown colours here are not really visible or. hard toread from that fix it from my app.py
-16:55
-Looking at the screenshot, I can see two visibility issues:
-"View all score bands" expander - the score band labels text is hard to read against the dark background
-"View your answer breakdown" expander - the Q chip, question text, and answer text colors need better contrast
-Let me fix both sections in the code:
-
-Edited a file, ran a command
-Edited a file, ran a command
-I'll fix both the score bands and answer breakdown sections directly in the Python code. The issues are in page_result():
-
-Fix score bands visibility - make label text white and increase contrast
-Fix score bands visibility - make label text white and increase contrast
-The document in context has the full Python code — let me work directly from it. Here are the two fixes needed:
-Fix 1 — Score bands: The label text color:#e2e8f0 renders dark inside the dark expander background. It needs to be brighter.
-Fix 2 — Answer breakdown: Same issue — text colors blend into the dark card.
-Here are the exact replacements to make in your app.py:
-Fix the score bands loop — find this block in page_result():
-python
-# OLD
-st.markdown(
-    f"<div style='display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;'>"
-    f"<span style='background:{bbg};border:1.5px solid {clr};color:{clr};"
-    f"border-radius:99px;padding:0.12rem 0.7rem;font-size:0.73rem;font-weight:800;"
-    f"white-space:nowrap;'>{low}–{high}</span>"
-    f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{lbl}</span></div>",
-    unsafe_allow_html=True,
-)
-Replace with:
-python
-# NEW — pill has solid color bg for contrast, label is pure white
-st.markdown(
-    f"<div style='display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;'>"
-    f"<span style='background:{clr};border:1.5px solid {clr};color:#ffffff;"
-    f"border-radius:99px;padding:0.18rem 0.85rem;font-size:0.75rem;font-weight:800;"
-    f"white-space:nowrap;'>{low}–{high}</span>"
-    f"<span style='color:#ffffff;font-size:0.92rem;font-weight:700;'>{lbl}</span></div>",
-    unsafe_allow_html=True,
-)
-Fix the answer breakdown loop — find this block:
-python
-st.markdown(
-    f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
-    f"border-bottom:1px solid rgba(255,255,255,0.08);'>"
-    f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
-    f"padding:0.1rem 0.6rem;font-size:0.68rem;font-weight:800;"
-    f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
-    f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{q['text']}</span><br>"
-    f"<span style='color:#00b4d8;font-size:0.85rem;font-weight:700;'>→ {a['selected']} "
-    f"<span style='color:#64748b;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
-    unsafe_allow_html=True,
-)
-Replace with:
-python
-# NEW — question text is white, selected answer is bright cyan, pts is light grey
-st.markdown(
-    f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
-    f"border-bottom:1px solid rgba(255,255,255,0.12);'>"
-    f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
-    f"padding:0.15rem 0.7rem;font-size:0.72rem;font-weight:800;"
-    f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
-    f"<span style='color:#ffffff;font-size:0.9rem;font-weight:600;line-height:1.5;'>{q['text']}</span><br>"
-    f"<span style='color:#48cae4;font-size:0.87rem;font-weight:700;'>→ {a['selected']} "
-    f"<span style='color:#90e0ef;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
-    unsafe_allow_html=True,
-)
-Summary of changes:
-Score band pills → solid color background instead of translucent, so the range number (0–14, 15–24 etc.) is legible; label text changed to pure
-#ffffff
-Answer breakdown → question text lifted to 
-#ffffff, selected answer to a brighter 
-#48cae4, points to 
-#90e0ef instead of the near-invisible
-#64748b
-Both fixes only touch color/opacity values — no logic changes.
-tell exact lines
-16:58
-Looking at the document in context, here are the exact line numbers:
-Fix 1 — Score bands (around line 390–398):
-python
-# REPLACE THIS:
-st.markdown(
-    f"<div style='display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;'>"
-    f"<span style='background:{bbg};border:1.5px solid {clr};color:{clr};"
-    f"border-radius:99px;padding:0.12rem 0.7rem;font-size:0.73rem;font-weight:800;"
-    f"white-space:nowrap;'>{low}–{high}</span>"
-    f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{lbl}</span></div>",
-    unsafe_allow_html=True,
-)
-Fix 2 — Answer breakdown (around line 420–430):
-python
-# REPLACE THIS:
-st.markdown(
-    f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
-    f"border-bottom:1px solid rgba(255,255,255,0.08);'>"
-    f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
-    f"padding:0.1rem 0.6rem;font-size:0.68rem;font-weight:800;"
-    f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
-    f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{q['text']}</span><br>"
-    f"<span style='color:#00b4d8;font-size:0.85rem;font-weight:700;'>→ {a['selected']} "
-    f"<span style='color:#64748b;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
-    unsafe_allow_html=True,
-)
-To get the exact line numbers, run this in your terminal:
-bash
-grep -n "background:{bbg}" app.py
-grep -n "color:#64748b" app.py
-That will tell you precisely which lines to edit.
-Screenshot 2026-04-04 at 17.08.46.png
-lets do this if u need I here are ; requirements.txt
-streamlit==1.33.0
-✅ 3. runtime.txt
-python-3.10
-✅ 4. .python-version
-3.10
-now write down the enitre codes for app py yourself fixing that color iss ue also as u see questions are longer but since it is short questions I only wanna seee always, rarely or others short answers like this also their coloring was not visble fix thes etwo. first as confirsmation tell urslef what u will be fixing
-Show more
-17:13
-Looking at the screenshot, here's what I'll fix:
-Answer breakdown — question text color: Currently dark/hard to read against the dark expander background. → Make it bright white 
-#ffffff
-Answer breakdown — selected answer text: The answer label (e.g. "Every session without fail") is in a dim teal that's hard to read. → Make it brighter
-Answer breakdown — pts color: "(+0 pts)" is nearly invisible grey
-#64748b → lift to 
-#90e0ef
-Answer labels too long: Instead of showing the full answer label like "Every session without fail", show only the short part — e.g. "Every session without fail" → just the first meaningful short chunk. Since all options follow a pattern (short label first, then "–" or a dash with detail), I'll truncate at " – " or " -" to show only the short label before the dash, falling back to the full label if no dash exists.
-Confirmed. Writing the full fixed app.py now:
-
-Full fixed app.py with visible colors and short answer labels in breakdown
-Full fixed app.py with visible colors and short answer labels in breakdown
-
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-Pasted content
-34.79 KB •906 lines
-Formatting may be inconsistent from source
 """
 Virtual Study Session Participation and Remote Focus Ability Survey
 Fundamentals of Programming - 4BUIS008C
@@ -164,7 +22,7 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-# CSS  — deep navy + teal design, no blobs, no z-index issues
+# CSS
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -176,13 +34,11 @@ html, body, [class*="css"] {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
-/* BACKGROUND */
 .stApp {
     background: linear-gradient(160deg, #0d1b2a 0%, #1b2a3b 55%, #0a3d62 100%) !important;
     min-height: 100vh;
 }
 
-/* LAYOUT */
 .block-container {
     max-width: 700px !important;
     padding: 2.5rem 1.5rem 4rem !important;
@@ -190,7 +46,6 @@ html, body, [class*="css"] {
 
 #MainMenu, footer, header { visibility: hidden; }
 
-/* PAGE TITLE */
 .page-title {
     color: #ffffff;
     font-size: 2rem;
@@ -208,7 +63,6 @@ html, body, [class*="css"] {
     margin-bottom: 1.6rem;
 }
 
-/* INFO BOX */
 .info-box {
     background: rgba(0,180,216,0.12);
     border-left: 4px solid #00b4d8;
@@ -220,7 +74,6 @@ html, body, [class*="css"] {
     margin-bottom: 1.4rem;
 }
 
-/* QUESTION CHIP */
 .q-chip {
     display: inline-block;
     background: #00b4d8;
@@ -234,7 +87,6 @@ html, body, [class*="css"] {
     margin-bottom: 0.4rem;
 }
 
-/* INPUTS */
 div[data-baseweb="input"] {
     background: #f1f5f9 !important;
     border: 2px solid #cbd5e1 !important;
@@ -267,7 +119,6 @@ div[data-baseweb="base-input"] {
     border-radius: 12px !important;
 }
 
-/* DATE INPUT */
 div[data-testid="stDateInput"] > div {
     background: #f1f5f9 !important;
     border: 2px solid #cbd5e1 !important;
@@ -282,7 +133,6 @@ div[data-testid="stDateInput"] input {
     box-shadow: none !important;
 }
 
-/* INPUT LABELS */
 div[data-testid="stTextInput"] > label,
 div[data-testid="stDateInput"] > label {
     color: #caf0f8 !important;
@@ -290,7 +140,6 @@ div[data-testid="stDateInput"] > label {
     font-size: 0.87rem !important;
 }
 
-/* RADIO */
 div[data-testid="stRadio"] > label {
     color: #e2e8f0 !important;
     font-weight: 700 !important;
@@ -317,7 +166,6 @@ div[data-testid="stRadio"] label:hover {
     transform: translateX(4px);
 }
 
-/* BUTTONS */
 .stButton > button {
     background: linear-gradient(135deg, #00b4d8, #0077b6) !important;
     color: #ffffff !important;
@@ -338,7 +186,6 @@ div[data-testid="stRadio"] label:hover {
     box-shadow: 0 8px 20px rgba(0,119,182,0.5) !important;
 }
 
-/* DOWNLOAD BUTTONS */
 .stDownloadButton > button {
     background: rgba(255,255,255,0.08) !important;
     color: #90e0ef !important;
@@ -353,7 +200,6 @@ div[data-testid="stRadio"] label:hover {
     transform: translateY(-1px) !important;
 }
 
-/* PROGRESS BAR */
 div[data-testid="stProgressBar"] > div {
     background: rgba(255,255,255,0.1) !important;
     border-radius: 99px !important;
@@ -364,7 +210,6 @@ div[data-testid="stProgressBar"] > div > div {
     border-radius: 99px !important;
 }
 
-/* EXPANDER */
 div[data-testid="stExpander"] {
     background: rgba(255,255,255,0.05) !important;
     border: 1.5px solid rgba(255,255,255,0.12) !important;
@@ -376,7 +221,6 @@ div[data-testid="stExpander"] summary span {
     font-weight: 700 !important;
 }
 
-/* SCORE BOX */
 .score-box {
     background: rgba(0,180,216,0.1);
     border: 2px solid #00b4d8;
@@ -386,7 +230,6 @@ div[data-testid="stExpander"] summary span {
     margin: 0.8rem 0 1.2rem;
 }
 
-/* RESULT BANNER */
 .result-banner {
     border-radius: 18px;
     padding: 2rem;
@@ -394,13 +237,11 @@ div[data-testid="stExpander"] summary span {
     margin: 0.8rem 0 1.2rem;
 }
 
-/* DIVIDER */
 hr {
     border-color: rgba(255,255,255,0.1) !important;
     margin: 1.2rem 0 !important;
 }
 
-/* FOOTER */
 .footer-txt {
     color: #90e0ef;
     font-size: 0.75rem;
@@ -409,7 +250,6 @@ hr {
     opacity: 0.7;
 }
 
-/* FILE UPLOADER */
 div[data-testid="stFileUploader"] {
     background: rgba(255,255,255,0.05) !important;
     border: 2px dashed #00b4d8 !important;
@@ -420,7 +260,6 @@ div[data-testid="stFileUploader"] label {
     font-weight: 600 !important;
 }
 
-/* ALERTS */
 div[data-testid="stAlert"] {
     border-radius: 12px !important;
     font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -633,6 +472,16 @@ def get_psychological_state(score: int) -> tuple:
         if low <= score <= high:
             return label, desc, color, bg
     return "Unknown", "Score out of range.", "#94a3b8", "rgba(148,163,184,0.15)"
+
+
+# ─────────────────────────────────────────────
+# HELPER: shorten answer label to the part before " – " or " - "
+# ─────────────────────────────────────────────
+def short_label(label: str) -> str:
+    for sep in [" – ", " - ", " — "]:
+        if sep in label:
+            return label.split(sep)[0].strip()
+    return label.strip()
 
 
 # ─────────────────────────────────────────────
@@ -925,15 +774,15 @@ def page_result():
     </div>
     """, unsafe_allow_html=True)
 
-    # All bands
+    # ── FIX 1: Score bands — solid pill bg, white label text ──
     with st.expander("📊 View all score bands"):
         for low, high, lbl, _, clr, bbg in PSYCHOLOGICAL_STATES:
             st.markdown(
-                f"<div style='display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;'>"
-                f"<span style='background:{bbg};border:1.5px solid {clr};color:{clr};"
-                f"border-radius:99px;padding:0.12rem 0.7rem;font-size:0.73rem;font-weight:800;"
-                f"white-space:nowrap;'>{low}–{high}</span>"
-                f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{lbl}</span></div>",
+                f"<div style='display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;'>"
+                f"<span style='background:{clr};color:#ffffff;"
+                f"border-radius:99px;padding:0.2rem 0.85rem;font-size:0.75rem;font-weight:800;"
+                f"white-space:nowrap;min-width:54px;text-align:center;'>{low}–{high}</span>"
+                f"<span style='color:#ffffff;font-size:0.93rem;font-weight:700;'>{lbl}</span></div>",
                 unsafe_allow_html=True,
             )
 
@@ -970,17 +819,23 @@ def page_result():
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
+    # ── FIX 2: Answer breakdown — white question text, bright answer, visible pts ──
     with st.expander("📋 View your answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
+            # Show only the short part of the answer (before " – ")
+            answer_short = short_label(a["selected"])
+            pts_color = "#34d399" if a["score"] == 0 else "#fbbf24" if a["score"] <= 2 else "#f87171"
             st.markdown(
-                f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
-                f"border-bottom:1px solid rgba(255,255,255,0.08);'>"
+                f"<div style='margin-bottom:1rem;padding-bottom:1rem;"
+                f"border-bottom:1px solid rgba(255,255,255,0.12);'>"
                 f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
-                f"padding:0.1rem 0.6rem;font-size:0.68rem;font-weight:800;"
+                f"padding:0.15rem 0.7rem;font-size:0.72rem;font-weight:800;"
                 f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
-                f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{q['text']}</span><br>"
-                f"<span style='color:#00b4d8;font-size:0.85rem;font-weight:700;'>→ {a['selected']} "
-                f"<span style='color:#64748b;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
+                f"<span style='color:#ffffff;font-size:0.9rem;font-weight:600;"
+                f"line-height:1.6;display:block;margin:0.35rem 0 0.2rem;'>{q['text']}</span>"
+                f"<span style='color:#48cae4;font-size:0.88rem;font-weight:700;'>→ {answer_short} </span>"
+                f"<span style='color:{pts_color};font-size:0.82rem;font-weight:700;'>(+{a['score']} pts)</span>"
+                f"</div>",
                 unsafe_allow_html=True,
             )
 
