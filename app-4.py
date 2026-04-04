@@ -1,6 +1,5 @@
 """
 Virtual Study Session Participation and Remote Focus Ability Survey
-Fundamentals of Programming - 4BUIS008C
 """
 
 import streamlit as st
@@ -830,17 +829,18 @@ def page_result():
 
     with st.expander("📋 View your answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
-            st.markdown(
-                f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
-                f"border-bottom:1px solid rgba(255,255,255,0.08);'>"
-                f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
-                f"padding:0.1rem 0.6rem;font-size:0.68rem;font-weight:800;"
-                f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
-                f"<span style='color:#e2e8f0;font-size:0.88rem;font-weight:600;'>{q['text']}</span><br>"
-                f"<span style='color:#00b4d8;font-size:0.85rem;font-weight:700;'>→ {a['selected']} "
-                f"<span style='color:#64748b;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
-                unsafe_allow_html=True,
-            )
+            # NEW — question text is white, selected answer is bright cyan, pts is light grey
+    st.markdown(
+        f"<div style='margin-bottom:0.85rem;padding-bottom:0.85rem;"
+        f"border-bottom:1px solid rgba(255,255,255,0.12);'>"
+        f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
+        f"padding:0.15rem 0.7rem;font-size:0.72rem;font-weight:800;"
+        f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
+        f"<span style='color:#ffffff;font-size:0.9rem;font-weight:600;line-height:1.5;'>{q['text']}</span><br>"
+        f"<span style='color:#48cae4;font-size:0.87rem;font-weight:700;'>→ {a['selected']} "
+        f"<span style='color:#90e0ef;font-weight:600;'>(+{a['score']} pts)</span></span></div>",
+        unsafe_allow_html=True,
+    )
 
     if st.button("🔄 Take Survey Again"):
         for key in ["page", "name", "student_id", "dob", "answers", "score"]:
