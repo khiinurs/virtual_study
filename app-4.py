@@ -117,12 +117,47 @@ div[data-testid="stRadio"] label:hover {
     box-shadow: 0 8px 20px rgba(124,58,237,0.4);
 }
 
-.stTextInput input, .stSelectbox select, .stDateInput input {
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
+.stTextInput input,
+.stTextInput input:focus,
+.stTextInput input::placeholder,
+.stNumberInput input,
+.stSelectbox select,
+.stDateInput input,
+.stDateInput input:focus,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+div[data-baseweb="input"] input,
+div[data-baseweb="base-input"] input {
+    background: #1e1b3a !important;
+    border: 1px solid rgba(167,139,250,0.4) !important;
     border-radius: 10px !important;
-    color: white !important;
+    color: #f3f4f6 !important;
     font-family: 'DM Sans', sans-serif !important;
+    caret-color: #a78bfa !important;
+}
+
+/* Placeholder text */
+.stTextInput input::placeholder,
+div[data-baseweb="input"] input::placeholder {
+    color: #6b7280 !important;
+    opacity: 1 !important;
+}
+
+/* Input wrapper backgrounds */
+div[data-baseweb="input"],
+div[data-baseweb="base-input"],
+div[data-testid="stTextInput"] > div,
+div[data-testid="stDateInput"] > div {
+    background: #1e1b3a !important;
+    border-radius: 10px !important;
+}
+
+/* Date input specifically */
+div[data-testid="stDateInput"] input {
+    background: #1e1b3a !important;
+    color: #f3f4f6 !important;
+    border: 1px solid rgba(167,139,250,0.4) !important;
 }
 
 .stDownloadButton button {
