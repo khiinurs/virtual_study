@@ -402,18 +402,18 @@ def get_hardcoded_questions() -> list:
         {
             "text": "How frequently do you take planned breaks during a remote study session?",
             "options": [
-                {"label": "Always: 0},
-                {"label": "Usually: 1},
-                {"label": "Sometimes: 2},
-                {"label": "Rarely: 3},
-                {"label": "Never: 4},
+                {"label": "Always – I use structured break methods (e.g., Pomodoro)", "score": 0},
+                {"label": "Usually – I take breaks every 45–60 min", "score": 1},
+                {"label": "Sometimes – breaks are unplanned", "score": 2},
+                {"label": "Rarely – I forget to take breaks", "score": 3},
+                {"label": "Never – I study until I burn out", "score": 4},
             ],
         },
         {
             "text": "How well can you manage technical issues (poor Wi-Fi, software glitches) without losing focus?",
             "options": [
-                {"label": "Very well: 0},
-                {"label": "Well: 1},
+                {"label": "Very well – I resolve them quickly and refocus", "score": 0},
+                {"label": "Well – minor frustration but I recover", "score": 1},
                 {"label": "Moderately – technical issues disrupt my flow", "score": 2},
                 {"label": "Poorly – they derail my entire session", "score": 3},
                 {"label": "Very poorly – I give up and stop studying", "score": 4},
