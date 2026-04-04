@@ -27,186 +27,326 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
+/* ── RESET & BASE ── */
 html, body, [class*="css"] {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 h1, h2, h3 {
-    font-family: 'DM Serif Display', serif !important;
+    font-family: 'Space+Grotesk', 'Nunito', sans-serif !important;
+    font-weight: 800 !important;
+    color: #1a1a2e !important;
 }
 
-.main {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    min-height: 100vh;
-}
-
+/* ── BACKGROUND: warm creamy with animated blobs ── */
 .stApp {
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: #fef9f0;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Floating blobs via pseudo-elements on the body */
+.stApp::before {
+    content: '';
+    position: fixed;
+    top: -120px;
+    left: -120px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, #fcd5ce 0%, #fbc4ab 60%, transparent 80%);
+    border-radius: 50%;
+    z-index: 0;
+    animation: blobFloat1 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.stApp::after {
+    content: '';
+    position: fixed;
+    bottom: -100px;
+    right: -100px;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, #b5ead7 0%, #c7f2a4 60%, transparent 80%);
+    border-radius: 50%;
+    z-index: 0;
+    animation: blobFloat2 10s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes blobFloat1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 20px) scale(1.05); }
+}
+@keyframes blobFloat2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-25px, -15px) scale(1.08); }
+}
+
+/* Extra decorative blobs */
+.blob-tl {
+    position: fixed; top: 40%; left: -80px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, #c9b1ff 0%, transparent 70%);
+    border-radius: 50%; z-index: 0; pointer-events: none;
+    animation: blobFloat1 12s ease-in-out infinite;
+}
+.blob-br {
+    position: fixed; top: 20%; right: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, #ffd6e0 0%, transparent 70%);
+    border-radius: 50%; z-index: 0; pointer-events: none;
+    animation: blobFloat2 9s ease-in-out infinite;
+}
+
+/* ── LAYOUT ── */
 .block-container {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-    max-width: 760px;
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+    max-width: 740px;
+    position: relative;
+    z-index: 1;
 }
 
-.survey-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    margin-bottom: 1.5rem;
-    backdrop-filter: blur(12px);
+/* ── CARDS ── */
+.card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem 2.2rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    border: 1.5px solid rgba(0,0,0,0.05);
 }
 
-.question-number {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: #a78bfa;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
+/* ── LABELS & BODY TEXT ── */
+label, p, span, div {
+    color: #2d2d2d;
 }
 
-.result-banner {
-    text-align: center;
-    padding: 2.5rem;
-    border-radius: 20px;
-    margin: 1.5rem 0;
+/* Streamlit label override */
+div[data-testid="stTextInput"] label,
+div[data-testid="stDateInput"] label,
+div[data-testid="stFileUploader"] label {
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    color: #444 !important;
+    letter-spacing: 0.02em;
 }
 
-.stRadio > div {
-    gap: 0.4rem;
+/* ── INPUTS — dark text on white/cream background ── */
+div[data-baseweb="input"],
+div[data-baseweb="base-input"] {
+    background: #fff8f0 !important;
+    border-radius: 14px !important;
+    border: 2px solid #e8d5c4 !important;
+    transition: border-color 0.2s;
 }
 
-div[data-testid="stRadio"] label {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 0.6rem 1rem;
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin-bottom: 0.3rem;
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="base-input"]:focus-within {
+    border-color: #ff8fab !important;
+    box-shadow: 0 0 0 3px rgba(255,143,171,0.15) !important;
 }
 
-div[data-testid="stRadio"] label:hover {
-    background: rgba(167, 139, 250, 0.15);
-    border-color: #a78bfa;
-}
-
-.stButton button {
-    background: linear-gradient(135deg, #7c3aed, #a78bfa);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.7rem 2.2rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    width: 100%;
-}
-
-.stButton button:hover {
-    background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(124,58,237,0.4);
-}
-
-.stTextInput input,
-.stTextInput input:focus,
-.stTextInput input::placeholder,
-.stNumberInput input,
-.stSelectbox select,
-.stDateInput input,
-.stDateInput input:focus,
-input[type="text"],
-input[type="number"],
-input[type="date"],
 div[data-baseweb="input"] input,
-div[data-baseweb="base-input"] input {
-    background: #1e1b3a !important;
-    border: 1px solid rgba(167,139,250,0.4) !important;
-    border-radius: 10px !important;
-    color: #f3f4f6 !important;
-    font-family: 'DM Sans', sans-serif !important;
-    caret-color: #a78bfa !important;
+div[data-baseweb="base-input"] input,
+.stTextInput input,
+.stDateInput input,
+input[type="text"],
+input[type="date"] {
+    background: transparent !important;
+    color: #1a1a1a !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    caret-color: #ff8fab !important;
 }
 
-/* Placeholder text */
-.stTextInput input::placeholder,
+input::placeholder,
 div[data-baseweb="input"] input::placeholder {
-    color: #6b7280 !important;
+    color: #bbb !important;
+    font-weight: 400 !important;
     opacity: 1 !important;
 }
 
-/* Input wrapper backgrounds */
-div[data-baseweb="input"],
-div[data-baseweb="base-input"],
-div[data-testid="stTextInput"] > div,
-div[data-testid="stDateInput"] > div {
-    background: #1e1b3a !important;
-    border-radius: 10px !important;
+/* ── RADIO OPTIONS ── */
+div[data-testid="stRadio"] > div {
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Date input specifically */
-div[data-testid="stDateInput"] input {
-    background: #1e1b3a !important;
-    color: #f3f4f6 !important;
-    border: 1px solid rgba(167,139,250,0.4) !important;
+div[data-testid="stRadio"] label {
+    background: #fff8f0 !important;
+    border: 2px solid #ede0d4 !important;
+    border-radius: 14px !important;
+    padding: 0.65rem 1.1rem !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+    color: #333 !important;
+    font-weight: 600 !important;
 }
 
+div[data-testid="stRadio"] label:hover {
+    background: #ffe4ec !important;
+    border-color: #ff8fab !important;
+    transform: translateX(4px);
+}
+
+/* selected radio */
+div[data-testid="stRadio"] label[data-checked="true"],
+div[data-testid="stRadio"] label:has(input:checked) {
+    background: linear-gradient(135deg, #ffe4ec, #fff0f5) !important;
+    border-color: #ff8fab !important;
+}
+
+/* ── BUTTONS ── */
+.stButton button {
+    background: linear-gradient(135deg, #ff8fab, #ffb3c6) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 14px !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    padding: 0.75rem 2rem !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    width: 100% !important;
+    box-shadow: 0 4px 14px rgba(255,143,171,0.35) !important;
+    letter-spacing: 0.02em;
+}
+
+.stButton button:hover {
+    background: linear-gradient(135deg, #ff6b9d, #ff8fab) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(255,107,157,0.4) !important;
+}
+
+/* ── DOWNLOAD BUTTONS ── */
 .stDownloadButton button {
-    background: rgba(167,139,250,0.15) !important;
-    border: 1px solid #a78bfa !important;
-    color: #a78bfa !important;
-    border-radius: 10px !important;
-    font-family: 'DM Sans', sans-serif !important;
+    background: white !important;
+    border: 2px solid #c9b1ff !important;
+    color: #7c3aed !important;
+    border-radius: 12px !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(124,58,237,0.1) !important;
+    transition: all 0.2s ease !important;
 }
 
+.stDownloadButton button:hover {
+    background: #f5f0ff !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.2) !important;
+}
+
+/* ── PROGRESS BAR ── */
+div[data-testid="stProgressBar"] > div > div {
+    background: linear-gradient(90deg, #ff8fab, #c9b1ff) !important;
+    border-radius: 99px !important;
+}
+div[data-testid="stProgressBar"] > div {
+    background: #ede0d4 !important;
+    border-radius: 99px !important;
+    height: 10px !important;
+}
+
+/* ── EXPANDER ── */
+div[data-testid="stExpander"] {
+    background: white !important;
+    border: 1.5px solid #ede0d4 !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+}
+
+/* ── FILE UPLOADER ── */
+div[data-testid="stFileUploader"] {
+    background: #fff8f0 !important;
+    border: 2px dashed #e8d5c4 !important;
+    border-radius: 16px !important;
+}
+
+/* ── ALERTS ── */
+div[data-testid="stAlert"] {
+    border-radius: 12px !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+/* ── DIVIDER ── */
+hr {
+    border-color: #ede0d4 !important;
+    margin: 1.5rem 0 !important;
+}
+
+/* ── QUESTION NUMBER TAG ── */
+.question-number {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #ff8fab;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+/* ── RESULT BANNER ── */
+.result-banner {
+    text-align: center;
+    padding: 2.2rem;
+    border-radius: 22px;
+    margin: 1.2rem 0;
+}
+
+/* ── SCORE BOX ── */
+.score-box {
+    background: linear-gradient(135deg, #fff0f5, #f5f0ff);
+    border: 2px solid #ffb3c6;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1.8rem;
+    margin: 1rem 0;
+}
+
+/* ── INFO BOX ── */
+.info-box {
+    background: #fff8f0;
+    border-left: 4px solid #ff8fab;
+    border-radius: 0 14px 14px 0;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 600;
+}
+
+/* ── PILL ── */
 .pill {
     display: inline-block;
-    background: rgba(167,139,250,0.2);
-    border: 1px solid #a78bfa;
     border-radius: 99px;
-    padding: 0.2rem 0.9rem;
+    padding: 0.2rem 0.85rem;
     font-size: 0.78rem;
-    font-weight: 600;
-    color: #c4b5fd;
+    font-weight: 700;
     margin-right: 0.4rem;
     margin-bottom: 0.4rem;
 }
 
-.score-box {
-    background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(167,139,250,0.15));
-    border: 1px solid #7c3aed;
-    border-radius: 16px;
+/* ── FOOTER TEXT ── */
+.footer-txt {
+    color: #bbb;
+    font-size: 0.78rem;
     text-align: center;
-    padding: 1.5rem;
-    margin: 1rem 0;
-}
-
-.info-box {
-    background: rgba(167,139,250,0.08);
-    border-left: 3px solid #a78bfa;
-    border-radius: 0 10px 10px 0;
-    padding: 1rem 1.2rem;
-    margin: 1rem 0;
-    font-size: 0.9rem;
-    color: #c4b5fd;
-}
-
-div[data-testid="stFileUploader"] {
-    background: rgba(255,255,255,0.04);
-    border: 1px dashed rgba(167,139,250,0.4);
-    border-radius: 12px;
-    padding: 1rem;
 }
 </style>
+
+<!-- decorative blobs injected into DOM -->
+<div class="blob-tl"></div>
+<div class="blob-br"></div>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
@@ -546,19 +686,19 @@ init_state()
 def page_home():
     st.markdown("""
     <div style='text-align:center; padding: 1.5rem 0 0.5rem;'>
-        <div style='font-size:3.5rem;'>🧠</div>
-        <h1 style='color:white; font-size:2.2rem; margin:0.3rem 0 0.1rem;'>Remote Focus Survey</h1>
-        <p style='color:#a78bfa; font-size:1rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:500;'>
-            Virtual Study Session Participation & Remote Focus Ability
+        <div style='font-size:3.8rem; margin-bottom:0.3rem;'>🧠✨</div>
+        <h1 style='color:#1a1a2e; font-size:2.3rem; margin:0.2rem 0 0.1rem;'>Remote Focus Survey</h1>
+        <p style='color:#ff8fab; font-size:0.9rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:800; margin:0;'>
+            Virtual Study · Participation · Focus Ability
         </p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div class='info-box'>
-        This survey contains <strong>15 questions</strong> and evaluates your participation in virtual 
+        This survey contains <strong>15 original questions</strong> that evaluate your participation in virtual 
         study sessions and your ability to maintain focus in remote learning environments.
-        The results will help identify your psychological readiness for remote study.
+        Results help identify your psychological readiness for online study 📚
     </div>
     """, unsafe_allow_html=True)
 
@@ -573,15 +713,15 @@ def page_home():
             st.rerun()
 
     st.markdown("---")
-    st.markdown("<p style='color:#6b7280; font-size:0.78rem; text-align:center;'>Fundamentals of Programming · 4BUIS008C · WIUT</p>", unsafe_allow_html=True)
+    st.markdown("<p class='footer-txt'>Fundamentals of Programming · 4BUIS008C · WIUT</p>", unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────
 # ── PAGE: DETAILS ──
 # ─────────────────────────────────────────────
 def page_details():
-    st.markdown("<h2 style='color:white;'>Your Details</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#9ca3af;'>Please fill in your information before starting the survey.</p>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#1a1a2e;'>👤 Your Details</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#777;'>Please fill in your information before starting the survey.</p>", unsafe_allow_html=True)
 
     name = st.text_input("Full Name", placeholder="e.g. Mary Ann Smith-Jones")
     student_id = st.text_input("Student ID (digits only)", placeholder="e.g. 002345")
@@ -644,9 +784,9 @@ def page_details():
 def page_survey():
     questions: list = st.session_state.questions
 
-    st.markdown(f"<h2 style='color:white;'>Survey</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:#1a1a2e;'>📋 Survey</h2>", unsafe_allow_html=True)
     st.markdown(
-        f"<p style='color:#9ca3af;'>Answer all <strong>{len(questions)}</strong> questions below.</p>",
+        f"<p style='color:#777;'>Answer all <strong>{len(questions)}</strong> questions below. Take your time! 🎯</p>",
         unsafe_allow_html=True,
     )
 
@@ -711,21 +851,21 @@ def page_result():
     label, description, color = get_psychological_state(score)
     max_score = len(questions) * 4
 
-    st.markdown(f"<h2 style='color:white;'>Your Results</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color:#1a1a2e;'>🎉 Your Results</h2>", unsafe_allow_html=True)
 
     # Score box
     st.markdown(f"""
     <div class='score-box'>
-        <p style='color:#c4b5fd; font-size:0.85rem; margin:0 0 0.3rem; letter-spacing:0.1em; text-transform:uppercase;'>Total Score</p>
-        <p style='color:white; font-size:3rem; font-weight:700; margin:0; font-family:DM Serif Display, serif;'>{score} <span style='font-size:1.4rem; color:#9ca3af;'>/ {max_score}</span></p>
+        <p style='color:#ff8fab; font-size:0.85rem; margin:0 0 0.3rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:800;'>Total Score</p>
+        <p style='color:#1a1a2e; font-size:3rem; font-weight:900; margin:0; font-family:Space Grotesk, sans-serif;'>{score} <span style='font-size:1.4rem; color:#aaa;'>/ {max_score}</span></p>
     </div>
     """, unsafe_allow_html=True)
 
     # State banner
     st.markdown(f"""
-    <div class='result-banner' style='background: {color}22; border: 2px solid {color};'>
-        <p style='color:{color}; font-size:1.5rem; font-weight:700; margin:0 0 0.5rem; font-family:DM Serif Display, serif;'>{label}</p>
-        <p style='color:#d1d5db; font-size:0.95rem; margin:0;'>{description}</p>
+    <div class='result-banner' style='background: {color}18; border: 2.5px solid {color};'>
+        <p style='color:{color}; font-size:1.5rem; font-weight:900; margin:0 0 0.5rem; font-family:Space Grotesk, sans-serif;'>{label}</p>
+        <p style='color:#444; font-size:0.95rem; margin:0; font-weight:600;'>{description}</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -739,7 +879,7 @@ def page_result():
     st.markdown("---")
 
     # Save options
-    st.markdown("<h3 style='color:white;'>💾 Save Your Results</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color:#1a1a2e;'>💾 Save Your Results</h3>", unsafe_allow_html=True)
 
     result_data = {
         "name": name,
@@ -782,10 +922,10 @@ def page_result():
     with st.expander("📋 View answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
             st.markdown(f"""
-            <div style='margin-bottom:0.8rem;'>
-                <span style='color:#9ca3af; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;'>Q{i:02d}</span><br>
-                <span style='color:#e5e7eb; font-size:0.88rem;'>{q['text']}</span><br>
-                <span style='color:#a78bfa; font-size:0.85rem;'>→ {a['selected']} <span style='color:#6b7280;'>(+{a['score']} pts)</span></span>
+            <div style='margin-bottom:0.8rem; padding-bottom:0.8rem; border-bottom:1px solid #ede0d4;'>
+                <span style='color:#ff8fab; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; font-weight:800;'>Q{i:02d}</span><br>
+                <span style='color:#333; font-size:0.88rem; font-weight:600;'>{q['text']}</span><br>
+                <span style='color:#7c3aed; font-size:0.85rem; font-weight:700;'>→ {a['selected']} <span style='color:#aaa; font-weight:600;'>(+{a['score']} pts)</span></span>
             </div>
             """, unsafe_allow_html=True)
 
@@ -800,8 +940,8 @@ def page_result():
 # ── PAGE: LOAD ──
 # ─────────────────────────────────────────────
 def page_load():
-    st.markdown("<h2 style='color:white;'>Load Saved Results</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color:#9ca3af;'>Upload a previously saved survey file (.json, .csv, or .txt).</p>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#1a1a2e;'>📂 Load Saved Results</h2>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#777;'>Upload a previously saved survey file (.json, .csv, or .txt).</p>", unsafe_allow_html=True)
 
     uploaded = st.file_uploader("Choose a result file", type=["json", "csv", "txt"])
 
@@ -819,9 +959,9 @@ def page_load():
             ]
             for field, val in fields:
                 st.markdown(f"""
-                <div style='display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.07);'>
-                    <span style='color:#9ca3af; font-size:0.88rem;'>{field}</span>
-                    <span style='color:white; font-size:0.88rem; font-weight:500;'>{val}</span>
+                <div style='display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid #ede0d4;'>
+                    <span style='color:#999; font-size:0.88rem; font-weight:600;'>{field}</span>
+                    <span style='color:#1a1a2e; font-size:0.88rem; font-weight:800;'>{val}</span>
                 </div>
                 """, unsafe_allow_html=True)
         else:
