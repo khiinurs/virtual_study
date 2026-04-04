@@ -1,6 +1,5 @@
 """
 Virtual Study Session Participation and Remote Focus Ability Survey
-Fundamentals of Programming - 4BUIS008C
 """
 
 import streamlit as st
@@ -87,6 +86,7 @@ html, body, [class*="css"] {
     margin-bottom: 0.4rem;
 }
 
+/* ── TEXT INPUTS ── */
 div[data-baseweb="input"] {
     background: #f1f5f9 !important;
     border: 2px solid #cbd5e1 !important;
@@ -118,7 +118,6 @@ div[data-baseweb="base-input"] {
     background: #f1f5f9 !important;
     border-radius: 12px !important;
 }
-
 div[data-testid="stDateInput"] > div {
     background: #f1f5f9 !important;
     border: 2px solid #cbd5e1 !important;
@@ -132,7 +131,6 @@ div[data-testid="stDateInput"] input {
     border: none !important;
     box-shadow: none !important;
 }
-
 div[data-testid="stTextInput"] > label,
 div[data-testid="stDateInput"] > label {
     color: #caf0f8 !important;
@@ -140,8 +138,13 @@ div[data-testid="stDateInput"] > label {
     font-size: 0.87rem !important;
 }
 
+/* ═══════════════════════════════════════════
+   FIX 1 — RADIO OPTIONS: force all text WHITE
+   Streamlit puts option text in <p> inside <label>.
+   Without this they render near-invisible on dark bg.
+   ═══════════════════════════════════════════ */
 div[data-testid="stRadio"] > label {
-    color: #e2e8f0 !important;
+    color: #ffffff !important;
     font-weight: 700 !important;
     font-size: 0.97rem !important;
 }
@@ -151,21 +154,51 @@ div[data-testid="stRadio"] > div {
     gap: 0.4rem;
 }
 div[data-testid="stRadio"] label {
-    background: rgba(255,255,255,0.06) !important;
-    border: 1.5px solid rgba(255,255,255,0.12) !important;
+    background: rgba(255,255,255,0.07) !important;
+    border: 1.5px solid rgba(255,255,255,0.18) !important;
     border-radius: 12px !important;
     padding: 0.65rem 1rem !important;
-    color: #e2e8f0 !important;
-    font-weight: 600 !important;
     cursor: pointer !important;
     transition: all 0.15s ease !important;
 }
 div[data-testid="stRadio"] label:hover {
     border-color: #00b4d8 !important;
-    background: rgba(0,180,216,0.12) !important;
+    background: rgba(0,180,216,0.15) !important;
     transform: translateX(4px);
 }
+div[data-testid="stRadio"] label p,
+div[data-testid="stRadio"] label span,
+div[data-testid="stRadio"] label div,
+div[data-testid="stRadio"] label * {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+}
 
+/* ═══════════════════════════════════════════
+   FIX 2 — EXPANDER HEADER: always cyan, never white
+   Streamlit toggles styles on open/close — we override
+   every child element in the summary row unconditionally.
+   ═══════════════════════════════════════════ */
+div[data-testid="stExpander"] {
+    background: rgba(255,255,255,0.05) !important;
+    border: 1.5px solid rgba(0,180,216,0.4) !important;
+    border-radius: 16px !important;
+}
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary *,
+div[data-testid="stExpander"] summary p,
+div[data-testid="stExpander"] summary span,
+div[data-testid="stExpander"] summary div,
+div[data-testid="stExpander"] summary svg,
+div[data-testid="stExpander"] > details > summary,
+div[data-testid="stExpander"] > details > summary * {
+    color: #00d4ff !important;
+    fill: #00d4ff !important;
+    font-weight: 700 !important;
+}
+
+/* ── BUTTONS ── */
 .stButton > button {
     background: linear-gradient(135deg, #00b4d8, #0077b6) !important;
     color: #ffffff !important;
@@ -185,7 +218,6 @@ div[data-testid="stRadio"] label:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 20px rgba(0,119,182,0.5) !important;
 }
-
 .stDownloadButton > button {
     background: rgba(255,255,255,0.08) !important;
     color: #90e0ef !important;
@@ -200,6 +232,7 @@ div[data-testid="stRadio"] label:hover {
     transform: translateY(-1px) !important;
 }
 
+/* ── PROGRESS BAR ── */
 div[data-testid="stProgressBar"] > div {
     background: rgba(255,255,255,0.1) !important;
     border-radius: 99px !important;
@@ -210,17 +243,7 @@ div[data-testid="stProgressBar"] > div > div {
     border-radius: 99px !important;
 }
 
-div[data-testid="stExpander"] {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1.5px solid rgba(255,255,255,0.12) !important;
-    border-radius: 16px !important;
-}
-div[data-testid="stExpander"] summary,
-div[data-testid="stExpander"] summary span {
-    color: #caf0f8 !important;
-    font-weight: 700 !important;
-}
-
+/* ── SCORE / RESULT ── */
 .score-box {
     background: rgba(0,180,216,0.1);
     border: 2px solid #00b4d8;
@@ -229,7 +252,6 @@ div[data-testid="stExpander"] summary span {
     padding: 1.8rem;
     margin: 0.8rem 0 1.2rem;
 }
-
 .result-banner {
     border-radius: 18px;
     padding: 2rem;
@@ -241,7 +263,6 @@ hr {
     border-color: rgba(255,255,255,0.1) !important;
     margin: 1.2rem 0 !important;
 }
-
 .footer-txt {
     color: #90e0ef;
     font-size: 0.75rem;
@@ -259,7 +280,6 @@ div[data-testid="stFileUploader"] label {
     color: #caf0f8 !important;
     font-weight: 600 !important;
 }
-
 div[data-testid="stAlert"] {
     border-radius: 12px !important;
     font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -475,13 +495,15 @@ def get_psychological_state(score: int) -> tuple:
 
 
 # ─────────────────────────────────────────────
-# HELPER: shorten answer label to the part before " – " or " - "
+# FIX 3 — SHORT LABEL HELPER
+# "Rarely – my schedule breaks down"  + score 3  →  "Rarely (3 pts)"
+# "Every session without fail"        + score 0  →  "Every session without fail (0 pts)"
 # ─────────────────────────────────────────────
-def short_label(label: str) -> str:
+def short_label(full_label: str, score: int) -> str:
     for sep in [" – ", " - ", " — "]:
-        if sep in label:
-            return label.split(sep)[0].strip()
-    return label.strip()
+        if sep in full_label:
+            return f"{full_label.split(sep)[0].strip()} ({score} pts)"
+    return f"{full_label.strip()} ({score} pts)"
 
 
 # ─────────────────────────────────────────────
@@ -761,7 +783,7 @@ def page_result():
                   text-transform:uppercase;margin:0 0 0.4rem;'>Total Score</p>
         <p style='color:#ffffff;font-size:3.2rem;font-weight:800;margin:0;line-height:1;'>
             {score}
-            <span style='font-size:1.3rem;color:#64748b;font-weight:600;'>&nbsp;/ {max_score}</span>
+            <span style='font-size:1.3rem;color:#90e0ef;font-weight:600;'>&nbsp;/ {max_score}</span>
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -770,19 +792,21 @@ def page_result():
     st.markdown(f"""
     <div class='result-banner' style='background:{bg};border:2px solid {color};'>
         <p style='color:{color};font-size:1.4rem;font-weight:800;margin:0 0 0.5rem;'>{label}</p>
-        <p style='color:#e2e8f0;font-size:0.93rem;font-weight:600;margin:0;'>{description}</p>
+        <p style='color:#ffffff;font-size:0.93rem;font-weight:600;margin:0;'>{description}</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── FIX 1: Score bands — solid pill bg, white label text ──
+    # FIX 4 — Score bands: solid coloured pill, white label text
     with st.expander("📊 View all score bands"):
-        for low, high, lbl, _, clr, bbg in PSYCHOLOGICAL_STATES:
+        for low, high, lbl, _, clr, _ in PSYCHOLOGICAL_STATES:
             st.markdown(
                 f"<div style='display:flex;align-items:center;gap:0.8rem;margin-bottom:0.6rem;'>"
-                f"<span style='background:{clr};color:#ffffff;"
-                f"border-radius:99px;padding:0.2rem 0.85rem;font-size:0.75rem;font-weight:800;"
-                f"white-space:nowrap;min-width:54px;text-align:center;'>{low}–{high}</span>"
-                f"<span style='color:#ffffff;font-size:0.93rem;font-weight:700;'>{lbl}</span></div>",
+                f"<span style='background:{clr};color:#ffffff;border-radius:99px;"
+                f"padding:0.2rem 0.85rem;font-size:0.75rem;font-weight:800;"
+                f"white-space:nowrap;min-width:58px;text-align:center;display:inline-block;'>"
+                f"{low}–{high}</span>"
+                f"<span style='color:#ffffff;font-size:0.93rem;font-weight:700;'>{lbl}</span>"
+                f"</div>",
                 unsafe_allow_html=True,
             )
 
@@ -819,22 +843,26 @@ def page_result():
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    # ── FIX 2: Answer breakdown — white question text, bright answer, visible pts ──
+    # FIX 3 — Answer breakdown: white question, short label (score pts), coloured by score
     with st.expander("📋 View your answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
-            # Show only the short part of the answer (before " – ")
-            answer_short = short_label(a["selected"])
-            pts_color = "#34d399" if a["score"] == 0 else "#fbbf24" if a["score"] <= 2 else "#f87171"
+            display = short_label(a["selected"], a["score"])
+            if a["score"] == 0:
+                pts_color = "#34d399"   # green  — best
+            elif a["score"] <= 2:
+                pts_color = "#fbbf24"   # yellow — mid
+            else:
+                pts_color = "#f87171"   # red    — worst
             st.markdown(
                 f"<div style='margin-bottom:1rem;padding-bottom:1rem;"
-                f"border-bottom:1px solid rgba(255,255,255,0.12);'>"
+                f"border-bottom:1px solid rgba(255,255,255,0.1);'>"
                 f"<span style='background:#00b4d8;color:#fff;border-radius:99px;"
                 f"padding:0.15rem 0.7rem;font-size:0.72rem;font-weight:800;"
                 f"letter-spacing:0.1em;'>Q{i:02d}</span><br>"
                 f"<span style='color:#ffffff;font-size:0.9rem;font-weight:600;"
-                f"line-height:1.6;display:block;margin:0.35rem 0 0.2rem;'>{q['text']}</span>"
-                f"<span style='color:#48cae4;font-size:0.88rem;font-weight:700;'>→ {answer_short} </span>"
-                f"<span style='color:{pts_color};font-size:0.82rem;font-weight:700;'>(+{a['score']} pts)</span>"
+                f"line-height:1.6;display:block;margin:0.35rem 0 0.25rem;'>{q['text']}</span>"
+                f"<span style='color:{pts_color};font-size:0.9rem;font-weight:700;'>"
+                f"→ {display}</span>"
                 f"</div>",
                 unsafe_allow_html=True,
             )
