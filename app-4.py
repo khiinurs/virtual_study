@@ -57,7 +57,7 @@ h1, h2, h3 {
     height: 420px;
     background: radial-gradient(circle, #fcd5ce 0%, #fbc4ab 60%, transparent 80%);
     border-radius: 50%;
-    z-index: 0;
+    z-index: -1;
     animation: blobFloat1 8s ease-in-out infinite;
     pointer-events: none;
 }
@@ -71,7 +71,7 @@ h1, h2, h3 {
     height: 380px;
     background: radial-gradient(circle, #b5ead7 0%, #c7f2a4 60%, transparent 80%);
     border-radius: 50%;
-    z-index: 0;
+    z-index: -1;
     animation: blobFloat2 10s ease-in-out infinite;
     pointer-events: none;
 }
@@ -90,14 +90,14 @@ h1, h2, h3 {
     position: fixed; top: 40%; left: -80px;
     width: 220px; height: 220px;
     background: radial-gradient(circle, #c9b1ff 0%, transparent 70%);
-    border-radius: 50%; z-index: 0; pointer-events: none;
+    border-radius: 50%; z-index: -1; pointer-events: none;
     animation: blobFloat1 12s ease-in-out infinite;
 }
 .blob-br {
     position: fixed; top: 20%; right: -60px;
     width: 180px; height: 180px;
     background: radial-gradient(circle, #ffd6e0 0%, transparent 70%);
-    border-radius: 50%; z-index: 0; pointer-events: none;
+    border-radius: 50%; z-index: -1; pointer-events: none;
     animation: blobFloat2 9s ease-in-out infinite;
 }
 
@@ -107,7 +107,7 @@ h1, h2, h3 {
     padding-bottom: 4rem;
     max-width: 740px;
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 /* ── CARDS ── */
