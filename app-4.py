@@ -51,8 +51,8 @@ h1, h2, h3 {
 .stApp::before {
     content: '';
     position: fixed;
-    top: -120px;
-    left: -120px;
+    top: 120px;
+    left: 120px;
     width: 420px;
     height: 420px;
     background: radial-gradient(circle, #fcd5ce 0%, #fbc4ab 60%, transparent 80%);
