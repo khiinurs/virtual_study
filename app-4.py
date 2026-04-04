@@ -112,7 +112,7 @@ h1, h2, h3 {
 
 /* ── CARDS ── */
 .card {
-    background: white;
+    background: purple;
     border-radius: 24px;
     padding: 2rem 2.2rem;
     margin-bottom: 1.2rem;
