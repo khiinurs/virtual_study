@@ -1,0 +1,152 @@
+[
+  {
+    "text": "How often do you voluntarily join scheduled virtual study sessions?",
+    "options": [
+      {"label": "Every session without fail", "score": 0},
+      {"label": "Most of the time", "score": 1},
+      {"label": "Occasionally", "score": 2},
+      {"label": "Rarely", "score": 3},
+      {"label": "Almost never", "score": 4}
+    ]
+  },
+  {
+    "text": "How well can you maintain focus during an online group study call?",
+    "options": [
+      {"label": "Extremely well \u2013 I stay engaged throughout", "score": 0},
+      {"label": "Fairly well \u2013 minor distractions only", "score": 1},
+      {"label": "Somewhat \u2013 I drift but refocus quickly", "score": 2},
+      {"label": "Poorly \u2013 I get distracted frequently", "score": 3},
+      {"label": "Very poorly \u2013 I can barely follow along", "score": 4}
+    ]
+  },
+  {
+    "text": "When working remotely, how easily do you stick to a study schedule?",
+    "options": [
+      {"label": "Very easily \u2013 I follow my schedule strictly", "score": 0},
+      {"label": "Mostly \u2013 with small deviations", "score": 1},
+      {"label": "Sometimes \u2013 I often revise my schedule", "score": 2},
+      {"label": "Rarely \u2013 my schedule breaks down often", "score": 3},
+      {"label": "Never \u2013 I have no real schedule", "score": 4}
+    ]
+  },
+  {
+    "text": "How often do environmental distractions (noise, family, phone) interrupt your remote study?",
+    "options": [
+      {"label": "Never \u2013 my study space is distraction-free", "score": 0},
+      {"label": "Rarely \u2013 minor interruptions only", "score": 1},
+      {"label": "Sometimes \u2013 a few times per session", "score": 2},
+      {"label": "Often \u2013 difficult to maintain focus", "score": 3},
+      {"label": "Always \u2013 my environment is very disruptive", "score": 4}
+    ]
+  },
+  {
+    "text": "How comfortable do you feel contributing verbally in virtual study groups?",
+    "options": [
+      {"label": "Very comfortable \u2013 I actively lead discussions", "score": 0},
+      {"label": "Comfortable \u2013 I participate regularly", "score": 1},
+      {"label": "Neutral \u2013 I participate when necessary", "score": 2},
+      {"label": "Uncomfortable \u2013 I mostly listen", "score": 3},
+      {"label": "Very uncomfortable \u2013 I avoid speaking", "score": 4}
+    ]
+  },
+  {
+    "text": "How effectively do you use digital tools (shared docs, whiteboards, chat) during virtual study?",
+    "options": [
+      {"label": "Very effectively \u2013 I drive tool usage", "score": 0},
+      {"label": "Effectively \u2013 I use them confidently", "score": 1},
+      {"label": "Somewhat \u2013 I use them when prompted", "score": 2},
+      {"label": "Barely \u2013 I find them difficult", "score": 3},
+      {"label": "Not at all \u2013 I struggle with digital tools", "score": 4}
+    ]
+  },
+  {
+    "text": "After a virtual study session, how productive do you feel compared to in-person study?",
+    "options": [
+      {"label": "Much more productive", "score": 0},
+      {"label": "About the same", "score": 1},
+      {"label": "Slightly less productive", "score": 2},
+      {"label": "Less productive", "score": 3},
+      {"label": "Far less productive", "score": 4}
+    ]
+  },
+  {
+    "text": "How often do you experience screen fatigue during or after virtual study sessions?",
+    "options": [
+      {"label": "Never", "score": 0},
+      {"label": "Rarely \u2013 only after very long sessions", "score": 1},
+      {"label": "Sometimes \u2013 in sessions over 1 hour", "score": 2},
+      {"label": "Often \u2013 most sessions tire me", "score": 3},
+      {"label": "Always \u2013 even short sessions exhaust me", "score": 4}
+    ]
+  },
+  {
+    "text": "How well do you retain information from virtual study sessions versus self-study?",
+    "options": [
+      {"label": "Much better in virtual sessions", "score": 0},
+      {"label": "About the same", "score": 1},
+      {"label": "Slightly worse in virtual sessions", "score": 2},
+      {"label": "Noticeably worse", "score": 3},
+      {"label": "Significantly worse", "score": 4}
+    ]
+  },
+  {
+    "text": "How often do you feel socially disconnected or isolated when studying remotely?",
+    "options": [
+      {"label": "Never \u2013 I feel connected online", "score": 0},
+      {"label": "Rarely", "score": 1},
+      {"label": "Sometimes", "score": 2},
+      {"label": "Often", "score": 3},
+      {"label": "Always \u2013 remote study feels very isolating", "score": 4}
+    ]
+  },
+  {
+    "text": "How frequently do you take planned breaks during a remote study session?",
+    "options": [
+      {"label": "Always \u2013 I use structured break methods (e.g., Pomodoro)", "score": 0},
+      {"label": "Usually \u2013 I take breaks every 45\u201360 min", "score": 1},
+      {"label": "Sometimes \u2013 breaks are unplanned", "score": 2},
+      {"label": "Rarely \u2013 I forget to take breaks", "score": 3},
+      {"label": "Never \u2013 I study until I burn out", "score": 4}
+    ]
+  },
+  {
+    "text": "How well can you manage technical issues (poor Wi-Fi, software glitches) without losing focus?",
+    "options": [
+      {"label": "Very well \u2013 I resolve them quickly and refocus", "score": 0},
+      {"label": "Well \u2013 minor frustration but I recover", "score": 1},
+      {"label": "Moderately \u2013 technical issues disrupt my flow", "score": 2},
+      {"label": "Poorly \u2013 they derail my entire session", "score": 3},
+      {"label": "Very poorly \u2013 I give up and stop studying", "score": 4}
+    ]
+  },
+  {
+    "text": "How motivated do you feel to study when joining a virtual session compared to studying alone?",
+    "options": [
+      {"label": "Much more motivated in virtual sessions", "score": 0},
+      {"label": "Slightly more motivated", "score": 1},
+      {"label": "No difference", "score": 2},
+      {"label": "Slightly less motivated", "score": 3},
+      {"label": "Far less motivated", "score": 4}
+    ]
+  },
+  {
+    "text": "How often do you find yourself multitasking (e.g., social media, gaming) during virtual study?",
+    "options": [
+      {"label": "Never \u2013 I stay fully on task", "score": 0},
+      {"label": "Rarely \u2013 a quick glance occasionally", "score": 1},
+      {"label": "Sometimes \u2013 for short periods", "score": 2},
+      {"label": "Often \u2013 it\u2019s hard to resist", "score": 3},
+      {"label": "Always \u2013 I\u2019m constantly doing something else", "score": 4}
+    ]
+  },
+  {
+    "text": "Overall, how satisfied are you with your ability to learn effectively in virtual/remote settings?",
+    "options": [
+      {"label": "Very satisfied", "score": 0},
+      {"label": "Satisfied", "score": 1},
+      {"label": "Neutral", "score": 2},
+      {"label": "Dissatisfied", "score": 3},
+      {"label": "Very dissatisfied", "score": 4}
+    ]
+  }
+]
