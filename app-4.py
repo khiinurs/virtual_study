@@ -138,11 +138,7 @@ div[data-testid="stDateInput"] > label {
     font-size: 0.87rem !important;
 }
 
-/* ═══════════════════════════════════════════
-   FIX 1 — RADIO OPTIONS: force all text WHITE
-   Streamlit puts option text in <p> inside <label>.
-   Without this they render near-invisible on dark bg.
-   ═══════════════════════════════════════════ */
+/* RADIO OPTIONS */
 div[data-testid="stRadio"] > label {
     color: #ffffff !important;
     font-weight: 700 !important;
@@ -175,11 +171,7 @@ div[data-testid="stRadio"] label * {
     font-size: 0.95rem !important;
 }
 
-/* ═══════════════════════════════════════════
-   FIX 2 — EXPANDER HEADER: always cyan, never white
-   Streamlit toggles styles on open/close — we override
-   every child element in the summary row unconditionally.
-   ═══════════════════════════════════════════ */
+/* EXPANDER */
 div[data-testid="stExpander"] {
     background: rgba(255,255,255,0.05) !important;
     border: 1.5px solid rgba(0,180,216,0.4) !important;
@@ -198,7 +190,7 @@ div[data-testid="stExpander"] > details > summary * {
     font-weight: 700 !important;
 }
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .stButton > button {
     background: linear-gradient(135deg, #00b4d8, #0077b6) !important;
     color: #ffffff !important;
@@ -232,7 +224,7 @@ div[data-testid="stExpander"] > details > summary * {
     transform: translateY(-1px) !important;
 }
 
-/* ── PROGRESS BAR ── */
+/* PROGRESS BAR */
 div[data-testid="stProgressBar"] > div {
     background: rgba(255,255,255,0.1) !important;
     border-radius: 99px !important;
@@ -243,7 +235,7 @@ div[data-testid="stProgressBar"] > div > div {
     border-radius: 99px !important;
 }
 
-/* ── SCORE / RESULT ── */
+/* SCORE / RESULT */
 .score-box {
     background: rgba(0,180,216,0.1);
     border: 2px solid #00b4d8;
@@ -262,13 +254,6 @@ div[data-testid="stProgressBar"] > div > div {
 hr {
     border-color: rgba(255,255,255,0.1) !important;
     margin: 1.2rem 0 !important;
-}
-.footer-txt {
-    color: #90e0ef;
-    font-size: 0.75rem;
-    text-align: center;
-    margin-top: 1.5rem;
-    opacity: 0.7;
 }
 
 div[data-testid="stFileUploader"] {
@@ -495,9 +480,7 @@ def get_psychological_state(score: int) -> tuple:
 
 
 # ─────────────────────────────────────────────
-# FIX 3 — SHORT LABEL HELPER
-# "Rarely – my schedule breaks down"  + score 3  →  "Rarely (3 pts)"
-# "Every session without fail"        + score 0  →  "Every session without fail (0 pts)"
+# SHORT LABEL HELPER
 # ─────────────────────────────────────────────
 def short_label(full_label: str, score: int) -> str:
     for sep in [" – ", " - ", " — "]:
@@ -638,9 +621,6 @@ def page_home():
             st.session_state.page = "load"
             st.rerun()
 
-    st.markdown("<p class='footer-txt'>Fundamentals of Programming · 4BUIS008C · WIUT</p>",
-                unsafe_allow_html=True)
-
 
 # ─────────────────────────────────────────────
 # PAGE: DETAILS
@@ -776,7 +756,6 @@ def page_result():
         unsafe_allow_html=True,
     )
 
-    # Score box
     st.markdown(f"""
     <div class='score-box'>
         <p style='color:#90e0ef;font-size:0.75rem;font-weight:800;letter-spacing:0.14em;
@@ -788,7 +767,6 @@ def page_result():
     </div>
     """, unsafe_allow_html=True)
 
-    # State banner
     st.markdown(f"""
     <div class='result-banner' style='background:{bg};border:2px solid {color};'>
         <p style='color:{color};font-size:1.4rem;font-weight:800;margin:0 0 0.5rem;'>{label}</p>
@@ -796,7 +774,6 @@ def page_result():
     </div>
     """, unsafe_allow_html=True)
 
-    # FIX 4 — Score bands: solid coloured pill, white label text
     with st.expander("📊 View all score bands"):
         for low, high, lbl, _, clr, _ in PSYCHOLOGICAL_STATES:
             st.markdown(
@@ -843,16 +820,15 @@ def page_result():
 
     st.markdown("<hr>", unsafe_allow_html=True)
 
-    # FIX 3 — Answer breakdown: white question, short label (score pts), coloured by score
     with st.expander("📋 View your answer breakdown"):
         for i, (q, a) in enumerate(zip(questions, answers), 1):
             display = short_label(a["selected"], a["score"])
             if a["score"] == 0:
-                pts_color = "#34d399"   # green  — best
+                pts_color = "#34d399"
             elif a["score"] <= 2:
-                pts_color = "#fbbf24"   # yellow — mid
+                pts_color = "#fbbf24"
             else:
-                pts_color = "#f87171"   # red    — worst
+                pts_color = "#f87171"
             st.markdown(
                 f"<div style='margin-bottom:1rem;padding-bottom:1rem;"
                 f"border-bottom:1px solid rgba(255,255,255,0.1);'>"
